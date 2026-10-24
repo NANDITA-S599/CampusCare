@@ -1,0 +1,13 @@
+{
+  "info": { "name": "CampusCare API", "description": "Core API checks for the CampusCare project. Set baseUrl and token in the collection variables.", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [{"key":"baseUrl","value":"http://localhost:5000/api"},{"key":"token","value":""},{"key":"complaintId","value":"1"}],
+  "item": [
+    {"name":"Health","request":{"method":"GET","url":"{{baseUrl}}/health"}},
+    {"name":"Login","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"email\":\"student@campuscare.local\",\"password\":\"CampusCare@123\"}"},"url":"{{baseUrl}}/auth/login"},"event":[{"listen":"test","script":{"exec":["if (pm.response.code === 200) { pm.collectionVariables.set('token', pm.response.json().token); }"]}}]},
+    {"name":"Current user","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/auth/me"}},
+    {"name":"List complaints","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/complaints"}},
+    {"name":"List departments","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/departments"}},
+    {"name":"Dashboard summary","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/dashboard/summary"}},
+    {"name":"Complaint details","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/complaints/{{complaintId}}"}}
+  ]
+}
